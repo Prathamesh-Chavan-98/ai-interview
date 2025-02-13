@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% block title %}Interview Results{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <h2>Interview Results</h2>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <h4>Overall Performance</h4>
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5>Average Score: {{ "%.1f"|format(average_score) }}/10</h5>
+                    </div>
+                    <div class="col-md-6">
+                        <h5>Total Points: {{ total_score }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% for eval in evaluations %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5>Question {{ loop.index }}</h5>
+                <div class="mb-2">
+                    <strong>Question:</strong>
+                    <p>{{ eval.question }}</p>
+                </div>
+                <div class="mb-2">
+                    <strong>Your Answer:</strong>
+                    <p>{{ eval.answer }}</p>
+                </div>
+                <div class="mb-2">
+                    <strong>Score:</strong>
+                    <span class="badge bg-{{ 'success' if eval.score >= 7 else 'warning' if eval.score >= 5 else 'danger' }}">
+                        {{ eval.score }}/10
+                    </span>
+                </div>
+                <div>
+                    <strong>Feedback:</strong>
+                    <p>{{ eval.justification }}</p>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <div class="text-center mt-4">
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

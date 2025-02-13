@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<div class="text-center my-5">
+    <h1>Welcome to the AI Interview System</h1>
+    <p class="lead">Streamline your hiring process with AI-powered interviews</p>
+    
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">For Businesses</h5>
+                    <p class="card-text">Post job requirements and review candidate interviews</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-primary">Register as Business</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">For Candidates</h5>
+                    <p class="card-text">Submit your profile and take AI interviews</p>
+                    <a href="{{ url_for('register') }}" class="btn btn-success">Register as Candidate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
