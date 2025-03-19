@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Business Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Business Dashboard</h2>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3>Post Job Requirements</h3>
+                <form method="POST" action="{{ url_for('post_job') }}">
+                    <div class="mb-3">
+                        <label class="form-label">Job Requirements</label>
+                        <textarea name="requirements" class="form-control" rows="5" required
+                                placeholder="Enter detailed job requirements, skills needed, and expectations..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Post Requirements</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h4>Statistics</h4>
+                <p>Active Job Posts: {{ job_requirements|length }}</p>
+                <!-- Add more statistics as needed -->
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

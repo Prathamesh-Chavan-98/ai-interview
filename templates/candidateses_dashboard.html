@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Candidate Dashboard{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <h2>Candidate Dashboard</h2>
+        <div class="card mt-4">
+            <div class="card-body">
+                <h3>Submit Profile</h3>
+                <form method="POST" action="{{ url_for('submit_profile') }}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label class="form-label">Upload Resume (PDF)</label>
+                        <input type="file" name="resume" class="form-control" accept=".pdf" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Skills</label>
+                        <textarea name="skills" class="form-control" rows="3" required
+                                placeholder="Enter your skills (comma separated)..."></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit Profile</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h4>Progress</h4>
+                <ul class="list-unstyled">
+                    <li>☐ Profile Submitted</li>
+                    <li>☐ Interview Completed</li>
+                    <li>☐ Results Available</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

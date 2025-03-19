@@ -115,8 +115,7 @@ def generate_questions(resume_text: str, skills: str, requirements: str) -> List
     ask 4 questions on Resume Content
     ask 3 questions on Skills
     ask 3 questions on business_requirements
-    Ask each question on each project. Do not focus on only one project.
-    Strictly generate only questions and no other word, only pure questions.
+    Strictly generate 10 only questions and no other word, only pure questions.
     """
     
     questions = get_groq_response(prompt).strip().split('\n')
@@ -134,19 +133,15 @@ def evaluate_answer(question: str, answer: str) -> Dict:
     
     Format: JSON object with 'score' and 'feedback' keys
     """
-    
-    try:
-        evaluation = get_groq_response(prompt)
-        result = json.loads(evaluation)
-        return {
-            'score': result.get('score', 0),
-            'feedback': result.get('feedback', 'No feedback available')
-        }
-    except:
-        return {
-            'score': 0,
-            'feedback': 'Error evaluating answer'
-        }
+    evaluation = get_groq_response(prompt)
+    print(evaluation)
+    cleaned_string = evaluation.strip('```json\n').strip('```')
+    result = json.loads(cleaned_string)
+    print(cleaned_string)
+    return {
+        'score': result.get('score', 0),
+        'feedback': result.get('feedback', 'No feedback available')
+    }
 
 # Routes
 @app.route('/')
@@ -279,6 +274,7 @@ def submit_answers():
         answer = request.form.get(f'answer_{i}')
         if answer:
             evaluation = evaluate_answer(question, answer)
+            print(evaluation)
             answers.append({
                 'question': question,
                 'answer': answer,
@@ -330,3 +326,4 @@ def internal_error(error):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
